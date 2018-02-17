@@ -1,6 +1,7 @@
 pub type LocalTransactionID=u32;
 
-pub use super::server::ServerID;
+use server::ServerID;
+use server::get_server_id;
 
 #[derive(Eq,PartialEq,Clone,Debug)]
 pub struct TransactionID {
@@ -24,6 +25,7 @@ impl TransactionID {
     }
 }
 
+/*
 pub struct Transaction {
     accesses:Vec<Box<AccessTrait>>,//Box:они могут лежать просто в стеке с транзакцией
     //mod_accesses:Vec<*mut AccessTrait> //TODO raw::TraitObject
@@ -88,6 +90,8 @@ pub trait AccessTrait {
     //fn is_remote
     fn write_local(&mut self);
 }
+
+*/
 
 /*
 

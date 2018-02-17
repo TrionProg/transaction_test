@@ -7,13 +7,18 @@ pub mod server;
 
 pub mod process;
 
+pub mod resource;
+
+pub mod local_storage;
+
 pub mod arbiter;
 //pub mod arbiter_wp;
 pub mod arbiter_rp;
 
 pub mod access;
-/*
+
 pub mod transaction;
+/*
 pub use transaction::{Transaction, AccessTrait};
 */
 
@@ -162,7 +167,34 @@ pub struct CameraAccessProcess {
 }
 */
 
+use prelude::*;
+
+struct Camera {
+    a:f32,
+    b:f32,
+    c:f32
+}
+
+impl RT for Camera{}
+
+fn foo() {
+    let rr:RR<Camera>=RR::new(RA::new(2));
+
+    let rr2=rr.clone();
+    let rr3=rr.clone();
+}
+
 fn main() {
+    use server::set_server_id;
+    use local_storage::{create_local_storage,delete_local_storage};
+
+    set_server_id(1);
+    create_local_storage();
+
+    foo();
+
+    delete_local_storage();
+
     /*
     let mut camera_guard=OutCameraGuard::new();
 
