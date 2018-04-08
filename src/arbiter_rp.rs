@@ -17,7 +17,7 @@ pub struct ArbiterRP<AM:AccessModeTrait, FC: ArrayLength<FieldState>>(
     Mutex<InnerArbiterRP<AM,FC>>
 );
 
-pub struct InnerArbiterRP<AM:AccessModeTrait,FC: ArrayLength<FieldState>> {
+struct InnerArbiterRP<AM:AccessModeTrait,FC: ArrayLength<FieldState>> {
     arbiter_core:ArbiterCore<FC>,
     waiting: BinaryHeap<Access<AM>>,
     locking: Vec<Access<AM>>

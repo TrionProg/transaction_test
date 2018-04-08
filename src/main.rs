@@ -1,6 +1,20 @@
 
 
 extern crate generic_array;
+extern crate object_pool;
+
+pub mod common;
+
+pub mod my;
+
+pub mod full_test;
+
+
+fn main(){
+    full_test::full_test(10)
+}
+
+/*
 
 pub mod server;
 //pub use server::{set_server_id, get_server_id};
@@ -10,6 +24,7 @@ pub mod process;
 pub mod resource;
 
 pub mod local_storage;
+pub mod master_storage;
 
 pub mod arbiter;
 //pub mod arbiter_wp;
@@ -187,13 +202,16 @@ fn foo() {
 fn main() {
     use server::set_server_id;
     use local_storage::{create_local_storage,delete_local_storage};
+    use master_storage::{create_master_storage,delete_master_storage};
 
     set_server_id(1);
     create_local_storage();
+    create_master_storage();
 
     foo();
 
     delete_local_storage();
+    delete_master_storage();
 
     /*
     let mut camera_guard=OutCameraGuard::new();
@@ -235,3 +253,5 @@ fn main() {
     */
 
 }
+
+*/
