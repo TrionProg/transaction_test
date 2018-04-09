@@ -3,6 +3,8 @@
 extern crate generic_array;
 extern crate object_pool;
 
+extern crate core;
+
 pub mod common;
 
 pub mod my;

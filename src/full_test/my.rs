@@ -2,7 +2,7 @@
 use my;
 use my::master_storage::{create_master_storage,get_master_storage,delete_master_storage};
 use my::resource::ResourceReference;
-use my::building::{Building,BuildingAddWallModifier};
+use my::building::{Building};
 use my::transaction::Transaction;
 
 use common::TransactionInfo;

@@ -1,4 +1,5 @@
 
+use core::ptr;
 use std::ops::BitAnd;
 
 use common::BoundingBox;
@@ -63,6 +64,14 @@ impl BitMask for BuildingBitMask {
     }
 }
 
+impl BuildingBitMask {
+    pub fn new(bits:u8) -> Self {
+        BuildingBitMask {
+            bits
+        }
+    }
+}
+
 //TODO add new(u8) -> Self
 
 impl BitAnd for BuildingBitMask {
@@ -77,13 +86,13 @@ pub struct BuildingView {
     resource_reference:ResourceReference<Building>,
     involved:BuildingBitMask,
     mode:BuildingBitMask,
-    bounding_box:Option<&'static FieldView<BoundingBox,BuildingView>>,
-    walls:Option<&'static FieldView<Vec<ResourceReference<Wall>>,BuildingView>>,
-    modifiers:Vec<&'static Box<ModifierTrait>>
+    modifiers:Vec<*const Box<ModifierTrait>>,
+    bounding_box:Option<*const FieldView<BoundingBox,BuildingView>>,
+    walls:Option<*const FieldView<Vec<ResourceReference<Wall>>,BuildingView>>
 }
 
 impl ObjectViewTrait for BuildingView{
-    fn add_modifier(&mut self, offset:usize, modifier_address:&Box<ModifierTrait>) {
+    fn add_modifier(&mut self, offset:usize, modifier_address:*const Box<ModifierTrait>) {
         self.modifiers.push(modifier_address);
     }
 }
@@ -94,12 +103,52 @@ impl BuildingView {
             resource_reference,
             involved:BuildingBitMask::zeroed(),
             mode:BuildingBitMask::zeroed(),
+            modifiers:Vec::new(),
             bounding_box:None,
             walls:None
         }
     }
 }
 
+pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&Transaction) /*-> &FieldView<BoundingBox,BuildingView>*/ {
+    let object_view=match transaction.get_object_view(&resource_reference.get_address()) {
+        Some(object_view) => object_view,
+        None => {
+            let object_view=Box::new(ObjectView::new(BuildingView::new(resource_reference.clone())));
+            transaction.add_object_view(resource_reference.get_address(), object_view)
+        }
+    };
+
+    let building_view=unsafe {
+        let a:&ObjectView<BuildingView>=(&*object_view).downcast_ref_unchecked();
+        a
+    };
+
+    let involved=BuildingBitMask::new(1);
+    let mode=BuildingBitMask::new(0);
+
+    let access=Access {
+        transaction:transaction.get_info(),
+        priority:10,
+        involved,
+        mode
+    };
+
+    resource_reference.get_resource().arbiter.lock(access);
+
+    let value=unsafe{&resource_reference.get_resource().bounding_box as *const BoundingBox};
+    let field_view=FieldView::new(building_view, 0, value, transaction);
+
+    //building_view.get_mut().bounding_box=Some()
+}
+
+/*
+pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&Transaction) -> &FieldView<BoundingBox,BuildingView> {
+    let bv=BuildingView::new(resource_reference.clone());
+}
+*/
+
+/*
 pub struct BuildingAddWallModifier {
     building:ResourceReference<Building>,
     wall:ResourceReference<Wall>
@@ -115,6 +164,7 @@ impl ModifierTrait for BuildingAddWallModifier {
 pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&Transaction) -> &'static FieldView<BoundingBox,BuildingView> {
     let bv=BuildingView::new(resource_reference.clone());
 }
+*/
 
 /*
 
