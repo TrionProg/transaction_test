@@ -4,14 +4,14 @@ use std::ops::BitAnd;
 use common::BoundingBox;
 
 use super::resource::ResourceTrait;
-use super::resource::ResourceReference;
-use super::transaction::AccessedResourceTrait;
+use super::resource::{ResourceAddress,ResourceReference};
 use super::transaction::ModifierTrait;
 use super::transaction::Transaction;
 
 use super::access::BitMask;
 use super::arbiter::Arbiter;
 use super::access::Access;
+use super::view::{ObjectViewTrait, ObjectView, FieldView};
 
 use super::array::Array;
 
@@ -73,12 +73,32 @@ impl BitAnd for BuildingBitMask {
     }
 }
 
-pub struct BuildingAccessedResource {
+pub struct BuildingView {
+    resource_reference:ResourceReference<Building>,
     involved:BuildingBitMask,
-    mode:BuildingBitMask
+    mode:BuildingBitMask,
+    bounding_box:Option<&'static FieldView<BoundingBox,BuildingView>>,
+    walls:Option<&'static FieldView<Vec<ResourceReference<Wall>>,BuildingView>>,
+    modifiers:Vec<&'static Box<ModifierTrait>>
 }
 
-impl AccessedResourceTrait for BuildingAccessedResource {}
+impl ObjectViewTrait for BuildingView{
+    fn add_modifier(&mut self, offset:usize, modifier_address:&Box<ModifierTrait>) {
+        self.modifiers.push(modifier_address);
+    }
+}
+
+impl BuildingView {
+    pub fn new(resource_reference:ResourceReference<Building>) -> Self {
+        BuildingView {
+            resource_reference,
+            involved:BuildingBitMask::zeroed(),
+            mode:BuildingBitMask::zeroed(),
+            bounding_box:None,
+            walls:None
+        }
+    }
+}
 
 pub struct BuildingAddWallModifier {
     building:ResourceReference<Building>,
@@ -91,6 +111,12 @@ impl ModifierTrait for BuildingAddWallModifier {
         walls.push(self.wall);
     }
 }
+
+pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&Transaction) -> &'static FieldView<BoundingBox,BuildingView> {
+    let bv=BuildingView::new(resource_reference.clone());
+}
+
+/*
 
 pub struct BuildingView1 {
     pub bounding_box:&'static BoundingBox,
@@ -145,3 +171,4 @@ impl BuildingView2 {//TODO extern crate>
         }
     }
 }
+*/

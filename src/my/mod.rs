@@ -5,6 +5,7 @@ pub mod access;
 pub mod transaction;
 pub mod master_storage;
 pub mod array;
+pub mod view;
 
 pub mod wall;
 pub mod building;
