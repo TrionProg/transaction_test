@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d6fa78f-1d20-4df2-9c50-e6589c5ce535" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/common.rs" afterPath="$PROJECT_DIR$/src/common.rs" />
-      <change beforePath="$PROJECT_DIR$/src/full_test/my.rs" afterPath="$PROJECT_DIR$/src/full_test/my.rs" />
-      <change beforePath="$PROJECT_DIR$/src/my/arbiter.rs" afterPath="$PROJECT_DIR$/src/my/arbiter.rs" />
-      <change beforePath="$PROJECT_DIR$/src/my/building.rs" afterPath="$PROJECT_DIR$/src/my/building.rs" />
-      <change beforePath="$PROJECT_DIR$/src/my/transaction.rs" afterPath="$PROJECT_DIR$/src/my/transaction.rs" />
-      <change beforePath="$PROJECT_DIR$/src/my/wall.rs" afterPath="$PROJECT_DIR$/src/my/wall.rs" />
-      <change beforePath="$PROJECT_DIR$/src/my/world.rs" afterPath="$PROJECT_DIR$/src/my/world.rs" />
+      <change beforePath="$PROJECT_DIR$/images/access_mode_table.png" afterPath="$PROJECT_DIR$/images/access_mode_table.png" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -35,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/src/common.rs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="198">
-              <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -70,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/src/my/world.rs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="475">
-              <caret line="34" column="35" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="35" />
+              <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="35" />
               <folding>
                 <element signature="e#975#976#0" expanded="true" />
                 <element signature="e#991#992#0" expanded="true" />
@@ -130,7 +124,7 @@
         <entry file="file://$PROJECT_DIR$/src/my/arbiter.rs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="236">
-              <caret line="193" column="60" lean-forward="true" selection-start-line="193" selection-start-column="28" selection-end-line="193" selection-end-column="60" />
+              <caret line="193" column="60" lean-forward="false" selection-start-line="193" selection-start-column="28" selection-end-line="193" selection-end-column="60" />
               <folding>
                 <element signature="e#931#932#0" expanded="true" />
                 <element signature="e#986#987#0" expanded="true" />
@@ -154,8 +148,8 @@
       <file leaf-file-name="my.rs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/full_test/my.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="94" column="14" lean-forward="false" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
+            <state relative-caret-position="47">
+              <caret line="67" column="55" lean-forward="true" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -259,7 +253,7 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="771" />
     <option name="width" value="1920" />
     <option name="height" value="1024" />
@@ -439,7 +433,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="771" y="0" width="1920" height="1024" extended-state="6" />
+    <frame x="771" y="0" width="1920" height="1024" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -450,7 +444,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2824176" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2824176" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -868,7 +862,7 @@
     <entry file="file://$PROJECT_DIR$/src/my/world.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
-          <caret line="34" column="35" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="35" />
+          <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="35" />
           <folding>
             <element signature="e#975#976#0" expanded="true" />
             <element signature="e#991#992#0" expanded="true" />
@@ -914,7 +908,7 @@
     <entry file="file://$PROJECT_DIR$/src/common.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
-          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -938,7 +932,7 @@
     <entry file="file://$PROJECT_DIR$/src/my/arbiter.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
-          <caret line="193" column="60" lean-forward="true" selection-start-line="193" selection-start-column="28" selection-end-line="193" selection-end-column="60" />
+          <caret line="193" column="60" lean-forward="false" selection-start-line="193" selection-start-column="28" selection-end-line="193" selection-end-column="60" />
           <folding>
             <element signature="e#931#932#0" expanded="true" />
             <element signature="e#986#987#0" expanded="true" />
@@ -981,8 +975,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/full_test/my.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="94" column="14" lean-forward="false" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
+        <state relative-caret-position="47">
+          <caret line="67" column="55" lean-forward="true" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="55" />
           <folding />
         </state>
       </provider>
