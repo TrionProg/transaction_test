@@ -20,8 +20,8 @@ struct InnerTransaction {
     field_views:Vec<Box<FieldViewTrait>>,
     object_views:Vec<Box<BigObjectViewTrait>>,
 
-    object_views_hash_map:HashMap<ResourceAddress, *const Box<BigObjectViewTrait>>
-    //modified object views
+    object_views_hash_map:HashMap<ResourceAddress, *const Box<BigObjectViewTrait>>,
+    modified_object:Vec<bool>,
 }
 
 impl Transaction {
@@ -33,7 +33,8 @@ impl Transaction {
             field_views:Vec::with_capacity(2),
             object_views:Vec::with_capacity(2),
 
-            object_views_hash_map:HashMap::with_capacity(2)
+            object_views_hash_map:HashMap::with_capacity(2),
+            modified_object:Vec::with_capacity(2)
         };
 
         Transaction {
@@ -78,7 +79,35 @@ impl Transaction {
         address
     }
 
-    //pub fn add_field
+    pub fn add_field_view(&self, field_view:Box<FieldViewTrait>) -> *const Box<FieldViewTrait> {
+        let transaction=unsafe{ &mut *self.inner.get() };
+
+        let len=transaction.field_views.len();
+        transaction.field_views.push(field_view);
+
+        let address=unsafe{ (&transaction.field_views[len] as *const Box<FieldViewTrait>)};
+
+        address
+    }
+
+    pub fn object_modified(&self) {
+        let transaction=unsafe{ &mut *self.inner.get() };
+
+        transaction.modified_object.push(false);
+    }
+}
+
+impl Drop for Transaction {
+    fn drop(&mut self) {
+        let transaction=unsafe{ &mut *self.inner.get() };
+
+        for (k,object_view) in transaction.object_views_hash_map.iter() {
+            let object_view:&Box<BigObjectViewTrait>=unsafe{ &**object_view };
+            object_view.release(&transaction.transaction);
+        }
+
+        println!("Trans Finished: {} {}", transaction.modified_object.len(),transaction.object_views.len());
+    }
 }
 
 pub trait ModifierTrait {

@@ -1,5 +1,6 @@
 
 use std::ops::BitAnd;
+use std::fmt::Debug;
 
 use common::TransactionInfo;
 
@@ -21,11 +22,13 @@ pub struct UnlockReadAccess<BM:BitMask> {
     pub involved:BM,
 }
 
-pub trait BitMask:BitAnd+PartialEq+Eq+Sized {
+pub trait BitMask:PartialEq+Eq+Sized+Debug {
     fn field_count() -> usize;
     fn zeroed() -> Self;
     fn get(&self, index:usize) -> bool;
     fn set(&mut self, index:usize);
     fn clear(&mut self, index:usize);
     fn and(&self, other: &Self) -> Self;
+    fn or(&self, other:&Self) -> Self;
+    fn not(&self) -> Self;
 }

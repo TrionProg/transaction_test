@@ -1,11 +1,16 @@
 use std::cell::UnsafeCell;
 
+use common::TransactionInfo;
+
 use super::transaction::Transaction;
 use super::transaction::ModifierTrait;
+use super::access::BitMask;
+use super::arbiter::Arbiter;
 
 pub struct FieldView<F, O:ObjectViewTrait> {
     inner:UnsafeCell<InnerFieldView<F, O>>
 }
+
 struct InnerFieldView<F, O:ObjectViewTrait>{
     offset:usize,
     value:*const F,
@@ -40,12 +45,21 @@ impl<F, O:ObjectViewTrait> FieldView<F, O> {
 
         unsafe {
             let modifier_address = (&*field_view.transaction).add_modifier(modifier);
-            (&*field_view.object).add_modifier(field_view.offset, modifier_address);
+            if (&*field_view.object).add_modifier(field_view.offset, modifier_address) {
+                (&*field_view.transaction).object_modified();//TODO
+            }
         }
     }
 }
 
-pub trait FieldViewTrait {}
+pub trait FieldViewTrait {
+}
+
+impl FieldViewTrait {
+    pub fn downcast_ref_unchecked<F: FieldViewTrait>(&self) -> &F {
+        unsafe { &*(self as *const FieldViewTrait as *const F) }
+    }
+}
 
 impl<F, O:ObjectViewTrait> FieldViewTrait for FieldView<F, O> {}
 
@@ -64,23 +78,26 @@ impl<O:ObjectViewTrait> ObjectView<O> {
         unsafe{ &mut *self.inner.get() }
     }
 
-    pub fn add_modifier(&self, offset:usize, modifier_address:*const Box<ModifierTrait>) {
+    pub fn add_modifier(&self, offset:usize, modifier_address:*const Box<ModifierTrait>) -> bool {
         let object_view=unsafe{ &mut *self.inner.get() };
 
-        object_view.add_modifier(offset, modifier_address);//TODO
+        object_view.add_modifier(offset, modifier_address)
     }
 }
 
 impl<O:ObjectViewTrait> BigObjectViewTrait for ObjectView<O>{
-
+    fn release(&self, transaction:&TransactionInfo) {
+        self.get_mut().release(transaction);
+    }
 }
 
 pub trait ObjectViewTrait:Sized {
-    fn add_modifier(&mut self, offset:usize, modifier_address:*const Box<ModifierTrait>);
+    fn add_modifier(&mut self, offset:usize, modifier_address:*const Box<ModifierTrait>) -> bool;
+    fn release(&self,transaction:&TransactionInfo);
 }
 
 pub trait BigObjectViewTrait {
-
+    fn release(&self, transaction:&TransactionInfo);
 }
 
 impl BigObjectViewTrait {

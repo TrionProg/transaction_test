@@ -3,6 +3,7 @@ use core::ptr;
 use std::ops::BitAnd;
 
 use common::BoundingBox;
+use common::TransactionInfo;
 
 use super::resource::ResourceTrait;
 use super::resource::{ResourceAddress,ResourceReference};
@@ -36,7 +37,7 @@ impl Building {
     }
 }
 
-#[derive(Eq,PartialEq)]
+#[derive(Eq,PartialEq,Debug)]
 pub struct BuildingBitMask {
     bits:u8
 }
@@ -62,6 +63,12 @@ impl BitMask for BuildingBitMask {
     fn and(&self, other: &Self) -> Self {
         BuildingBitMask{bits:self.bits & other.bits}
     }
+    fn or(&self, other:&Self) -> Self {
+        BuildingBitMask{bits:self.bits | other.bits}
+    }
+    fn not(&self) -> Self {
+        BuildingBitMask{bits:!self.bits}
+    }
 }
 
 impl BuildingBitMask {
@@ -69,16 +76,6 @@ impl BuildingBitMask {
         BuildingBitMask {
             bits
         }
-    }
-}
-
-//TODO add new(u8) -> Self
-
-impl BitAnd for BuildingBitMask {
-    type Output = Self;
-
-    fn bitand(self, rhs: Self) -> Self::Output {
-        BuildingBitMask{bits:self.bits & rhs.bits}
     }
 }
 
@@ -92,8 +89,14 @@ pub struct BuildingView {
 }
 
 impl ObjectViewTrait for BuildingView{
-    fn add_modifier(&mut self, offset:usize, modifier_address:*const Box<ModifierTrait>) {
+    fn add_modifier(&mut self, offset:usize, modifier_address:*const Box<ModifierTrait>) -> bool {
+        let is_empty=self.modifiers.len()==0;
         self.modifiers.push(modifier_address);
+        is_empty
+    }
+
+    fn release(&self,transaction:&TransactionInfo) {
+        self.resource_reference.get_resource().arbiter.unlock(transaction)
     }
 }
 
@@ -110,7 +113,7 @@ impl BuildingView {
     }
 }
 
-pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&Transaction) /*-> &FieldView<BoundingBox,BuildingView>*/ {
+pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&Transaction) -> &'static FieldView<BoundingBox,BuildingView> {
     let object_view=match transaction.get_object_view(&resource_reference.get_address()) {
         Some(object_view) => object_view,
         None => {
@@ -119,27 +122,43 @@ pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&T
         }
     };
 
-    let building_view=unsafe {
-        let a:&ObjectView<BuildingView>=(&*object_view).downcast_ref_unchecked();
-        a
+    let building_view:&ObjectView<BuildingView>=unsafe {
+        (&*object_view).downcast_ref_unchecked()
     };
 
-    let involved=BuildingBitMask::new(1);
-    let mode=BuildingBitMask::new(0);
+    {
+        let building_view2 = building_view.get_mut();
 
-    let access=Access {
-        transaction:transaction.get_info(),
-        priority:10,
-        involved,
-        mode
-    };
+        let involved = BuildingBitMask::new(1);
+        let mode = BuildingBitMask::new(0);
 
-    resource_reference.get_resource().arbiter.lock(access);
+        let check_mask = building_view2.involved.not().and(&involved).or(&building_view2.involved.and(&mode).and(&building_view2.mode.not()));
+        let involved=involved.and(&check_mask);
+        let mode=mode.and(&check_mask);
 
-    let value=unsafe{&resource_reference.get_resource().bounding_box as *const BoundingBox};
-    let field_view=FieldView::new(building_view, 0, value, transaction);
+        println!("{} {}",involved.bits,mode.bits);
 
-    //building_view.get_mut().bounding_box=Some()
+        let access = Access {
+            transaction: transaction.get_info(),
+            priority: 10,
+            involved,
+            mode
+        };
+
+        resource_reference.get_resource().arbiter.lock(access);
+
+        let value = unsafe { &resource_reference.get_resource().bounding_box as *const BoundingBox };
+        let field_view = Box::new(FieldView::new(building_view, 0, value, transaction));
+        let field_view = transaction.add_field_view(field_view);
+
+        let field_view: &FieldView<BoundingBox, BuildingView> = unsafe {
+            (&*field_view).downcast_ref_unchecked()
+        };
+
+        building_view2.bounding_box = Some(field_view);
+
+        &*field_view
+    }
 }
 
 /*

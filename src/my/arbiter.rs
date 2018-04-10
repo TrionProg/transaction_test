@@ -20,7 +20,10 @@ struct InnerArbiter<BM:BitMask> {
     field_write_state:BM,
     field_counter:Vec<u16>,
 
-    waiting: BinaryHeap<WaitingTransaction<BM>>,
+    //waiting: BinaryHeap<WaitingTransaction<BM>>,
+    waiting1:Vec<WaitingTransaction<BM>>,
+    waiting2:Vec<WaitingTransaction<BM>>,
+    waiting3:Vec<WaitingTransaction<BM>>,
     locking: HashMap<TransactionInfo, LockingTransaction<BM>>
 }
 
@@ -72,7 +75,7 @@ impl<BM:BitMask> Arbiter<BM> {
         arbiter.unlock_read(access);
     }
 
-    pub fn unlock(&self, transaction:TransactionInfo) {
+    pub fn unlock(&self, transaction:&TransactionInfo) {
         let mut arbiter=match self.0.lock() {
             Ok(arbiter) => arbiter,
             Err(_) => unimplemented!()
@@ -89,16 +92,31 @@ impl<BM:BitMask> InnerArbiter<BM> {
         InnerArbiter {
             field_write_state:BM::zeroed(),
             field_counter,
-            waiting: BinaryHeap::with_capacity(2),
+            //waiting: BinaryHeap::with_capacity(2),
+            waiting1:Vec::with_capacity(2),
+            waiting2:Vec::with_capacity(2),
+            waiting3:Vec::with_capacity(2),
             locking: HashMap::with_capacity(2),
         }
     }
 
+    fn try_lock(field_write_state:&BM, access:&Access<BM>) -> bool {
+        !(field_write_state.and(&access.involved) == BM::zeroed())
+    }
+
     fn lock(&mut self, access:Access<BM>) -> Result<(),WaitHandle> {
-        if !(self.field_write_state.and(&access.involved) == BM::zeroed()) {
+        if Self::try_lock(&self.field_write_state, &access) {
+            println!("collision");
             //TODO collision
+            let class_code=access.transaction.class_code;
             let (waiting_transaction, wait_handle)=WaitingTransaction::new(access);
-            self.waiting.push(waiting_transaction);
+
+            match class_code {
+                1 => self.waiting1.push(waiting_transaction),
+                2 => self.waiting2.push(waiting_transaction),
+                3 => self.waiting3.push(waiting_transaction),
+                _ => unreachable!()
+            }
 
             Err(wait_handle)
         }else{
@@ -112,15 +130,6 @@ impl<BM:BitMask> InnerArbiter<BM> {
 
     fn apply_lock(&mut self, access:Access<BM>) -> bool {
         let locking_transaction = self.locking.entry(access.transaction.clone()).or_insert(LockingTransaction::new());
-        /*
-        let locking_transaction={
-
-            match self.locking.entry(access.transaction.clone()) {
-                Entry::Occupied(ref mut e) => e.get_mut(),
-                Entry::Vacant(e) => e.insert(LockingTransaction::new())
-            }
-        };
-        */
 
         for i in 0..BM::field_count() {
             if access.involved.get(i) {
@@ -166,8 +175,8 @@ impl<BM:BitMask> InnerArbiter<BM> {
         self.try_continue_transactions();
     }
 
-    fn unlock(&mut self, transaction:TransactionInfo) {
-        match self.locking.get_mut(&transaction) {
+    fn unlock(&mut self, transaction:&TransactionInfo) {
+        match self.locking.get_mut(transaction) {
             Some(locking_transaction) => {
                 for i in 0..BM::field_count() {
                     if locking_transaction.involved.get(i) {
@@ -184,11 +193,29 @@ impl<BM:BitMask> InnerArbiter<BM> {
 
         self.locking.remove(&transaction);
 
+        println!("{:?} {} {}", self.field_write_state, self.field_counter[0], self.field_counter[1]);
+
         self.try_continue_transactions();
     }
 
     fn try_continue_transactions(&mut self) {
-        //TODO
+        if self.waiting1.len()>0 {
+            if Self::try_lock(&self.field_write_state, &self.waiting1.last().unwrap().access) {
+                let waiting_transaction=self.waiting1.pop().unwrap();
+
+                let wait_handle=waiting_transaction.wait_handle;
+                let access=waiting_transaction.access;
+
+                println!("continue");
+
+                self.apply_lock(access);
+
+                let &(ref lock, ref condvar) = &*wait_handle;
+                let mut started = lock.lock().unwrap();
+                *started = true;
+                condvar.notify_one();
+            }
+        }
     }
 }
 

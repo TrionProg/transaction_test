@@ -1,5 +1,6 @@
 use std::hash::{Hash, Hasher};
 
+#[derive(Debug)]
 pub struct Point {
     x:f32,
     y:f32
@@ -14,6 +15,7 @@ impl Point {
     }
 }
 
+#[derive(Debug)]
 pub struct BoundingBox {
     a:Point,
     b:Point
