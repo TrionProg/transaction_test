@@ -28,12 +28,18 @@ pub struct Building {
 impl ResourceTrait for Building {}
 
 impl Building {
-    pub fn new(bounding_box:BoundingBox) -> Self {
+    pub fn new(bounding_box:BoundingBox, walls:Vec<ResourceReference<Wall>>) -> Self {
         Building{
             arbiter:Arbiter::new(),
             bounding_box,
-            walls:Vec::new()
+            walls
         }
+    }
+}
+
+impl Drop for Building {
+    fn drop(&mut self) {
+        //println!("Drop building");
     }
 }
 
@@ -96,6 +102,7 @@ impl ObjectViewTrait for BuildingView{
     }
 
     fn release(&self,transaction:&TransactionInfo) {
+        println!("release building");
         self.resource_reference.get_resource().arbiter.unlock(transaction)
     }
 }
@@ -113,7 +120,7 @@ impl BuildingView {
     }
 }
 
-pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&Transaction) -> &'static FieldView<BoundingBox,BuildingView> {
+pub fn get_building_view1(resource_reference:&ResourceReference<Building>, transaction:&Transaction) -> &'static FieldView<BoundingBox,BuildingView> {
     let object_view=match transaction.get_object_view(&resource_reference.get_address()) {
         Some(object_view) => object_view,
         None => {
@@ -129,12 +136,12 @@ pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&T
     {
         let building_view2 = building_view.get_mut();
 
-        let involved = BuildingBitMask::new(1);
-        let mode = BuildingBitMask::new(0);
+        let involved_o = BuildingBitMask::new(1);
+        let mode_o = BuildingBitMask::new(0);
 
-        let check_mask = building_view2.involved.not().and(&involved).or(&building_view2.involved.and(&mode).and(&building_view2.mode.not()));
-        let involved=involved.and(&check_mask);
-        let mode=mode.and(&check_mask);
+        let check_mask = building_view2.involved.not().and(&involved_o).or(&building_view2.involved.and(&mode_o).and(&building_view2.mode.not()));
+        let involved=involved_o.and(&check_mask);
+        let mode=mode_o.and(&check_mask);
 
         println!("{} {}",involved.bits,mode.bits);
 
@@ -156,6 +163,108 @@ pub fn get_view1(resource_reference:&ResourceReference<Building>, transaction:&T
         };
 
         building_view2.bounding_box = Some(field_view);
+        building_view2.involved=building_view2.involved.or(&involved_o);
+        building_view2.mode=building_view2.mode.or(&mode_o);
+
+        &*field_view
+    }
+}
+
+pub fn get_building_view2(resource_reference:&ResourceReference<Building>, transaction:&Transaction) -> &'static FieldView<BoundingBox,BuildingView> {
+    let object_view=match transaction.get_object_view(&resource_reference.get_address()) {
+        Some(object_view) => object_view,
+        None => {
+            let object_view=Box::new(ObjectView::new(BuildingView::new(resource_reference.clone())));
+            transaction.add_object_view(resource_reference.get_address(), object_view)
+        }
+    };
+
+    let building_view:&ObjectView<BuildingView>=unsafe {
+        (&*object_view).downcast_ref_unchecked()
+    };
+
+    {
+        let building_view2 = building_view.get_mut();
+
+        let involved_o = BuildingBitMask::new(1);
+        let mode_o = BuildingBitMask::new(1);
+
+        let check_mask = building_view2.involved.not().and(&involved_o).or(&building_view2.involved.and(&mode_o).and(&building_view2.mode.not()));
+        let involved=involved_o.and(&check_mask);
+        let mode=mode_o.and(&check_mask);
+
+        println!("{} {}",involved.bits,mode.bits);
+
+        let access = Access {
+            transaction: transaction.get_info(),
+            priority: 10,
+            involved,
+            mode
+        };
+
+        resource_reference.get_resource().arbiter.lock(access);
+
+        let value = unsafe { &resource_reference.get_resource().bounding_box as *const BoundingBox };
+        let field_view = Box::new(FieldView::new(building_view, 0, value, transaction));
+        let field_view = transaction.add_field_view(field_view);
+
+        let field_view: &FieldView<BoundingBox, BuildingView> = unsafe {
+            (&*field_view).downcast_ref_unchecked()
+        };
+
+        building_view2.bounding_box = Some(field_view);
+        building_view2.involved=building_view2.involved.or(&involved_o);
+        building_view2.mode=building_view2.mode.or(&mode_o);
+
+        &*field_view
+    }
+}
+
+pub fn get_building_view3(resource_reference:&ResourceReference<Building>, transaction:&Transaction) -> &'static FieldView<Vec<ResourceReference<Wall>>,BuildingView> {
+    let object_view=match transaction.get_object_view(&resource_reference.get_address()) {
+        Some(object_view) => object_view,
+        None => {
+            let object_view=Box::new(ObjectView::new(BuildingView::new(resource_reference.clone())));
+            transaction.add_object_view(resource_reference.get_address(), object_view)
+        }
+    };
+
+    let building_view:&ObjectView<BuildingView>=unsafe {
+        (&*object_view).downcast_ref_unchecked()
+    };
+
+    {
+        let building_view2 = building_view.get_mut();
+
+        let involved_o = BuildingBitMask::new(2);
+        let mode_o = BuildingBitMask::new(2);
+
+        let check_mask = building_view2.involved.not().and(&involved_o).or(&building_view2.involved.and(&mode_o).and(&building_view2.mode.not()));
+        let involved=involved_o.and(&check_mask);
+        let mode=mode_o.and(&check_mask);
+
+        println!("{} {}",involved.bits,mode.bits);
+
+        let access = Access {
+            transaction: transaction.get_info(),
+            priority: 10,
+            involved,
+            mode
+        };
+
+        resource_reference.get_resource().arbiter.lock(access);
+
+        let value = unsafe { &resource_reference.get_resource().walls as *const Vec<ResourceReference<Wall>> };
+        let field_view = Box::new(FieldView::new(building_view, 0, value, transaction));
+        let field_view = transaction.add_field_view(field_view);
+
+        let field_view: &FieldView<Vec<ResourceReference<Wall>>, BuildingView> = unsafe {
+            (&*field_view).downcast_ref_unchecked()
+        };
+
+        building_view2.walls = Some(field_view);
+        building_view2.involved=building_view2.involved.or(&involved_o);
+        building_view2.mode=building_view2.mode.or(&mode_o);
 
         &*field_view
     }

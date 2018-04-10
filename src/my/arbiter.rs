@@ -193,7 +193,7 @@ impl<BM:BitMask> InnerArbiter<BM> {
 
         self.locking.remove(&transaction);
 
-        println!("{:?} {} {}", self.field_write_state, self.field_counter[0], self.field_counter[1]);
+        println!("A:{:?} {} {}", self.field_write_state, self.field_counter[0], self.field_counter[1]);
 
         self.try_continue_transactions();
     }

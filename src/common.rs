@@ -28,6 +28,10 @@ impl BoundingBox {
             b
         }
     }
+
+    pub fn collide(&self, point:Point) -> bool {
+        point.x>self.a.x && point.x<self.b.x && point.y>self.a.y && point.y<self.b.y
+    }
 }
 
 #[derive(Clone,Eq,PartialEq)]

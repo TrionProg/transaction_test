@@ -2,6 +2,7 @@
 
 extern crate generic_array;
 extern crate object_pool;
+extern crate rand;
 
 extern crate core;
 
