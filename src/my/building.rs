@@ -102,7 +102,7 @@ impl ObjectViewTrait for BuildingView{
     }
 
     fn release(&self,transaction:&TransactionInfo) {
-        println!("release building");
+        //println!("release building");
         self.resource_reference.get_resource().arbiter.unlock(transaction)
     }
 }
@@ -143,7 +143,7 @@ pub fn get_building_view1(resource_reference:&ResourceReference<Building>, trans
         let involved=involved_o.and(&check_mask);
         let mode=mode_o.and(&check_mask);
 
-        println!("{} {}",involved.bits,mode.bits);
+        //println!("{} {}",involved.bits,mode.bits);
 
         let access = Access {
             transaction: transaction.get_info(),
@@ -193,7 +193,7 @@ pub fn get_building_view2(resource_reference:&ResourceReference<Building>, trans
         let involved=involved_o.and(&check_mask);
         let mode=mode_o.and(&check_mask);
 
-        println!("{} {}",involved.bits,mode.bits);
+        //println!("{} {}",involved.bits,mode.bits);
 
         let access = Access {
             transaction: transaction.get_info(),
@@ -243,7 +243,7 @@ pub fn get_building_view3(resource_reference:&ResourceReference<Building>, trans
         let involved=involved_o.and(&check_mask);
         let mode=mode_o.and(&check_mask);
 
-        println!("{} {}",involved.bits,mode.bits);
+        //println!("{} {}",involved.bits,mode.bits);
 
         let access = Access {
             transaction: transaction.get_info(),

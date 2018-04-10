@@ -97,7 +97,7 @@ impl ObjectViewTrait for WorldView{
     }
 
     fn release(&self,transaction:&TransactionInfo) {
-        println!("release world");
+        //println!("release world");
         self.resource_reference.get_resource().arbiter.unlock(transaction)
     }
 }
@@ -137,7 +137,7 @@ pub fn get_world_view1(resource_reference:&ResourceReference<World>, transaction
         let involved=involved_o.and(&check_mask);
         let mode=mode_o.and(&check_mask);
 
-        println!("{} {}",involved.bits,mode.bits);
+        //println!("{} {}",involved.bits,mode.bits);
 
         let access = Access {
             transaction: transaction.get_info(),

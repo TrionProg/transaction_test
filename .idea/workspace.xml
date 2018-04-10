@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d6fa78f-1d20-4df2-9c50-e6589c5ce535" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" afterPath="$PROJECT_DIR$/Cargo.lock" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" afterPath="$PROJECT_DIR$/Cargo.toml" />
       <change beforePath="$PROJECT_DIR$/src/common.rs" afterPath="$PROJECT_DIR$/src/common.rs" />
       <change beforePath="$PROJECT_DIR$/src/full_test/my.rs" afterPath="$PROJECT_DIR$/src/full_test/my.rs" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" afterPath="$PROJECT_DIR$/src/main.rs" />
       <change beforePath="$PROJECT_DIR$/src/my/arbiter.rs" afterPath="$PROJECT_DIR$/src/my/arbiter.rs" />
       <change beforePath="$PROJECT_DIR$/src/my/building.rs" afterPath="$PROJECT_DIR$/src/my/building.rs" />
       <change beforePath="$PROJECT_DIR$/src/my/transaction.rs" afterPath="$PROJECT_DIR$/src/my/transaction.rs" />
@@ -35,21 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cargo.toml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Cargo.toml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="common.rs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+            <state relative-caret-position="198">
+              <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -58,9 +44,24 @@
       <file leaf-file-name="wall.rs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/my/wall.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="58" lean-forward="false" selection-start-line="14" selection-start-column="58" selection-end-line="14" selection-end-column="58" />
-              <folding />
+            <state relative-caret-position="464">
+              <caret line="175" column="8" lean-forward="false" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="8" />
+              <folding>
+                <element signature="e#855#856#0" expanded="true" />
+                <element signature="e#871#872#0" expanded="true" />
+                <element signature="e#995#996#0" expanded="true" />
+                <element signature="e#1035#1036#0" expanded="true" />
+                <element signature="e#1072#1073#0" expanded="true" />
+                <element signature="e#1109#1110#0" expanded="true" />
+                <element signature="e#1148#1149#0" expanded="true" />
+                <element signature="e#1188#1189#0" expanded="true" />
+                <element signature="e#1230#1231#0" expanded="true" />
+                <element signature="e#1285#1286#0" expanded="true" />
+                <element signature="e#1325#1326#0" expanded="true" />
+                <element signature="e#1380#1381#0" expanded="true" />
+                <element signature="e#1408#1409#0" expanded="true" />
+                <element signature="e#1451#1452#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -68,8 +69,8 @@
       <file leaf-file-name="world.rs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/my/world.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+            <state relative-caret-position="475">
+              <caret line="34" column="35" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="35" />
               <folding>
                 <element signature="e#975#976#0" expanded="true" />
                 <element signature="e#991#992#0" expanded="true" />
@@ -93,8 +94,8 @@
       <file leaf-file-name="building.rs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/my/building.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="34" column="17" lean-forward="true" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+            <state relative-caret-position="2554">
+              <caret line="245" column="10" lean-forward="false" selection-start-line="245" selection-start-column="10" selection-end-line="245" selection-end-column="10" />
               <folding>
                 <element signature="e#1082#1083#0" expanded="true" />
                 <element signature="e#1098#1099#0" expanded="true" />
@@ -118,8 +119,8 @@
       <file leaf-file-name="transaction.rs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/my/transaction.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="111" column="14" lean-forward="false" selection-start-line="111" selection-start-column="14" selection-end-line="111" selection-end-column="14" />
+            <state relative-caret-position="1343">
+              <caret line="116" column="37" lean-forward="false" selection-start-line="116" selection-start-column="37" selection-end-line="116" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -128,13 +129,13 @@
       <file leaf-file-name="arbiter.rs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/my/arbiter.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="236">
+              <caret line="193" column="60" lean-forward="true" selection-start-line="193" selection-start-column="28" selection-end-line="193" selection-end-column="60" />
               <folding>
                 <element signature="e#931#932#0" expanded="true" />
                 <element signature="e#986#987#0" expanded="true" />
-                <element signature="e#7283#7284#0" expanded="true" />
-                <element signature="e#7330#7331#0" expanded="true" />
+                <element signature="e#8453#8454#0" expanded="true" />
+                <element signature="e#8500#8501#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,7 +144,7 @@
       <file leaf-file-name="access.rs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/my/access.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
+            <state relative-caret-position="-106">
               <caret line="2" column="20" lean-forward="false" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
               <folding />
             </state>
@@ -153,8 +154,8 @@
       <file leaf-file-name="my.rs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/full_test/my.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-348">
-              <caret line="73" column="12" lean-forward="false" selection-start-line="73" selection-start-column="12" selection-end-line="73" selection-end-column="12" />
+            <state relative-caret-position="104">
+              <caret line="94" column="14" lean-forward="false" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -186,9 +187,11 @@
       <find>building</find>
       <find>walls</find>
       <find>Building</find>
+      <find>release</find>
+      <find>world</find>
       <find>downcast_ref_unchecked</find>
       <find>println</find>
-      <find>release</find>
+      <find>waiting1</find>
     </findStrings>
     <replaceStrings>
       <replace>ArbiterRP</replace>
@@ -197,7 +200,9 @@
       <replace>ArrayLength&lt;FieldState&gt;</replace>
       <replace>WorldBitMask</replace>
       <replace>World</replace>
+      <replace>wall</replace>
       <replace>world</replace>
+      <replace>waiting2</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -235,14 +240,14 @@
         <option value="$PROJECT_DIR$/src/my/mod.rs" />
         <option value="$PROJECT_DIR$/src/my/view.rs" />
         <option value="$PROJECT_DIR$/src/my/access.rs" />
-        <option value="$PROJECT_DIR$/src/my/wall.rs" />
         <option value="$PROJECT_DIR$/Cargo.toml" />
+        <option value="$PROJECT_DIR$/src/main.rs" />
+        <option value="$PROJECT_DIR$/src/my/world.rs" />
+        <option value="$PROJECT_DIR$/src/my/building.rs" />
+        <option value="$PROJECT_DIR$/src/my/wall.rs" />
+        <option value="$PROJECT_DIR$/src/my/transaction.rs" />
         <option value="$PROJECT_DIR$/src/common.rs" />
         <option value="$PROJECT_DIR$/src/my/arbiter.rs" />
-        <option value="$PROJECT_DIR$/src/my/building.rs" />
-        <option value="$PROJECT_DIR$/src/my/world.rs" />
-        <option value="$PROJECT_DIR$/src/my/transaction.rs" />
-        <option value="$PROJECT_DIR$/src/main.rs" />
         <option value="$PROJECT_DIR$/src/full_test/my.rs" />
       </list>
     </option>
@@ -575,8 +580,8 @@
           <folding>
             <element signature="e#931#932#0" expanded="true" />
             <element signature="e#986#987#0" expanded="true" />
-            <element signature="e#7283#7284#0" expanded="true" />
-            <element signature="e#7330#7331#0" expanded="true" />
+            <element signature="e#8453#8454#0" expanded="true" />
+            <element signature="e#8500#8501#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -860,34 +865,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/common.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/my/wall.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="58" lean-forward="false" selection-start-line="14" selection-start-column="58" selection-end-line="14" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/my/access.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="20" lean-forward="false" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/my/world.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+        <state relative-caret-position="475">
+          <caret line="34" column="35" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="35" />
           <folding>
             <element signature="e#975#976#0" expanded="true" />
             <element signature="e#991#992#0" expanded="true" />
@@ -907,10 +888,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/my/transaction.rs">
+    <entry file="file://$PROJECT_DIR$/src/my/wall.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="111" column="14" lean-forward="false" selection-start-line="111" selection-start-column="14" selection-end-line="111" selection-end-column="14" />
+        <state relative-caret-position="464">
+          <caret line="175" column="8" lean-forward="false" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="8" />
+          <folding>
+            <element signature="e#855#856#0" expanded="true" />
+            <element signature="e#871#872#0" expanded="true" />
+            <element signature="e#995#996#0" expanded="true" />
+            <element signature="e#1035#1036#0" expanded="true" />
+            <element signature="e#1072#1073#0" expanded="true" />
+            <element signature="e#1109#1110#0" expanded="true" />
+            <element signature="e#1148#1149#0" expanded="true" />
+            <element signature="e#1188#1189#0" expanded="true" />
+            <element signature="e#1230#1231#0" expanded="true" />
+            <element signature="e#1285#1286#0" expanded="true" />
+            <element signature="e#1325#1326#0" expanded="true" />
+            <element signature="e#1380#1381#0" expanded="true" />
+            <element signature="e#1408#1409#0" expanded="true" />
+            <element signature="e#1451#1452#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -923,23 +927,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/my/access.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-106">
+          <caret line="2" column="20" lean-forward="false" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/my/arbiter.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="236">
+          <caret line="193" column="60" lean-forward="true" selection-start-line="193" selection-start-column="28" selection-end-line="193" selection-end-column="60" />
           <folding>
             <element signature="e#931#932#0" expanded="true" />
             <element signature="e#986#987#0" expanded="true" />
-            <element signature="e#7283#7284#0" expanded="true" />
-            <element signature="e#7330#7331#0" expanded="true" />
+            <element signature="e#8453#8454#0" expanded="true" />
+            <element signature="e#8500#8501#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/my/transaction.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1343">
+          <caret line="116" column="37" lean-forward="false" selection-start-line="116" selection-start-column="37" selection-end-line="116" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/my/building.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="34" column="17" lean-forward="true" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+        <state relative-caret-position="2554">
+          <caret line="245" column="10" lean-forward="false" selection-start-line="245" selection-start-column="10" selection-end-line="245" selection-end-column="10" />
           <folding>
             <element signature="e#1082#1083#0" expanded="true" />
             <element signature="e#1098#1099#0" expanded="true" />
@@ -961,8 +981,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/full_test/my.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-348">
-          <caret line="73" column="12" lean-forward="false" selection-start-line="73" selection-start-column="12" selection-end-line="73" selection-end-column="12" />
+        <state relative-caret-position="104">
+          <caret line="94" column="14" lean-forward="false" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
           <folding />
         </state>
       </provider>

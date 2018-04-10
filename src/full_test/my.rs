@@ -11,6 +11,8 @@ use my::transaction::Transaction;
 
 use my::building::{get_building_view1, get_building_view2, get_building_view3};
 use my::world::get_world_view1;
+use my::wall::get_wall_view1;
+use my::wall::SetHealthModifier;
 
 use common::TransactionInfo;
 use common::{BoundingBox,Point};
@@ -94,25 +96,30 @@ fn check_buildings_transaction(transaction:&Transaction, world:ResourceReference
 }
 
 fn process_buildings(buildings:Vec<ResourceReference<Building>>, i:usize) {
-    let transaction=Transaction::new(TransactionInfo::new(1,i as u32));
-
-    process_buildings_transaction(&transaction, buildings)
-}
-
-fn process_buildings_transaction(transaction:&Transaction, buildings:Vec<ResourceReference<Building>>) {
     for building in buildings.iter() {
-        if process_building(transaction, building) {
+        if process_building(building,i) {
             //TODO
         }
     }
 }
 
-fn process_building(transaction:&Transaction, building:&ResourceReference<Building>) -> bool {
+fn process_building(building:&ResourceReference<Building>, i:usize) -> bool{
+    let transaction=Transaction::new(TransactionInfo::new(2,i as u32));
+
+    process_building_transaction(&transaction,building)
+}
+
+fn process_building_transaction(transaction:&Transaction, building:&ResourceReference<Building>) -> bool {
     let walls=get_building_view3(building,transaction);
 
     for wall in walls.get().iter() {
-        //if wall.
-        thread::sleep_ms(100);
+        let (bounding_box, health)=get_wall_view1(wall,transaction);
+
+        if bounding_box.get().collide(Point::new(5.0,5.0)) {
+            //println!("yoh");
+            thread::sleep_ms(10);
+            health.add_modifer(Box::new(SetHealthModifier{health:4.0}));
+        }
     }
 
     false
@@ -130,7 +137,7 @@ pub fn test(thread_count:usize) {
 
         let jh=thread::spawn(move || {
             let buildings=check_buildings(world2, i);
-            //process_buildings(buildings,i);
+            process_buildings(buildings,i);
         });
 
         threads1.push(jh);

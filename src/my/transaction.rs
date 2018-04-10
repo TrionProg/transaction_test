@@ -114,7 +114,7 @@ impl Drop for Transaction {
             object_view.release(&transaction.transaction);
         }
 
-        println!("Trans Finished: {} {}", transaction.modified_object.len(),transaction.object_views.len());
+        println!("Trans Finished: {:?} {} {}", transaction.transaction, transaction.modified_object.len(),transaction.object_views.len());
     }
 }
 

@@ -106,7 +106,16 @@ impl<BM:BitMask> InnerArbiter<BM> {
 
     fn lock(&mut self, access:Access<BM>) -> Result<(),WaitHandle> {
         if Self::try_lock(&self.field_write_state, &access) {
-            println!("collision");
+            println!("COLLISION {:?} {}",access.transaction, self.waiting2.len());
+
+            for w in self.waiting2.iter() {
+                println!("W{:?}", w.access.transaction);
+            }
+
+            for l in self.locking.iter() {
+                println!("L{:?}",l.0);
+            }
+
             //TODO collision
             let class_code=access.transaction.class_code;
             let (waiting_transaction, wait_handle)=WaitingTransaction::new(access);
@@ -176,6 +185,7 @@ impl<BM:BitMask> InnerArbiter<BM> {
     }
 
     fn unlock(&mut self, transaction:&TransactionInfo) {
+        println!("unlock");
         match self.locking.get_mut(transaction) {
             Some(locking_transaction) => {
                 for i in 0..BM::field_count() {
@@ -193,12 +203,22 @@ impl<BM:BitMask> InnerArbiter<BM> {
 
         self.locking.remove(&transaction);
 
-        println!("A:{:?} {} {}", self.field_write_state, self.field_counter[0], self.field_counter[1]);
+        println!("A:{:?} {:?} {} {}", transaction, self.field_write_state, self.waiting1.len(), self.waiting2.len());
+
+        for w in self.waiting2.iter() {
+            println!("W{:?}", w.access.transaction);
+        }
+
+        for l in self.locking.iter() {
+            println!("L{:?}",l.0);
+        }
 
         self.try_continue_transactions();
     }
 
     fn try_continue_transactions(&mut self) {
+        println!("continue {}", self.waiting2.len());
+
         if self.waiting1.len()>0 {
             if Self::try_lock(&self.field_write_state, &self.waiting1.last().unwrap().access) {
                 let waiting_transaction=self.waiting1.pop().unwrap();
@@ -215,6 +235,24 @@ impl<BM:BitMask> InnerArbiter<BM> {
                 *started = true;
                 condvar.notify_one();
             }
+        }
+
+        if self.waiting2.len()>0 {
+            //if Self::try_lock(&self.field_write_state, &self.waiting2.last().unwrap().access) {
+                let waiting_transaction=self.waiting2.pop().unwrap();
+
+                let wait_handle=waiting_transaction.wait_handle;
+                let access=waiting_transaction.access;
+
+                println!("continue");
+
+                self.apply_lock(access);
+
+                let &(ref lock, ref condvar) = &*wait_handle;
+                let mut started = lock.lock().unwrap();
+                *started = true;
+                condvar.notify_one();
+            //}
         }
     }
 }

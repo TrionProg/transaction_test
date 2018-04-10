@@ -34,7 +34,7 @@ impl BoundingBox {
     }
 }
 
-#[derive(Clone,Eq,PartialEq)]
+#[derive(Clone,Eq,PartialEq,Debug)]
 pub struct TransactionInfo{
     pub class_code:u32,
     pub id:u32
