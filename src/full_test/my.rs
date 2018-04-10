@@ -24,7 +24,7 @@ fn create_world_transaction(transaction:&Transaction) -> ResourceReference<Build
 
     //let building_view2=BuildingView2::get(&building, transaction);
 
-    //println!("{}",building_view2.walls.len());
+    //println!("{}",building_view2.walls.len()); 
 
     let view=get_view1(&building,transaction);
 
